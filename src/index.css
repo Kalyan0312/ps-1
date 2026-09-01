@@ -1,0 +1,267 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   COOPERATIVE GIG PLATFORM — Global Design System
+   Reference: Warm Ivory / Deep Charcoal / Copper-Terracotta palette
+   Fonts: Playfair Display (headings) · Inter (body/UI)
+───────────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Design Tokens ──────────────────────────────────────────────────────── */
+:root {
+  --color-background:          #F7F3EC;
+  --color-surface:             #FFFFFF;
+  --color-surface-secondary:   #EFE2D2;
+  --color-surface-tertiary:    #F3E4D4;
+  --color-navigation:          #171717;
+  --color-primary:             #9A5B3A;
+  --color-primary-hover:       #C9684A;
+  --color-secondary:           #EFE2D2;
+  --color-text:                #171717;
+  --color-text-secondary:      #6F6A63;
+  --color-border:              #E0D5C8;
+  --color-border-strong:       #C9A07A;
+  --color-success:             #527A62;
+  --color-warning:             #9A5B3A;
+  --color-error:               #A94A43;
+  --color-input:               #FFFFFF;
+  --color-input-border:        #C9A07A;
+  --color-input-focus:         #9A5B3A;
+}
+
+/* ── Base Layer ─────────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+  }
+
+  h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  ::selection {
+    background-color: #C9684A33;
+    color: #171717;
+  }
+
+  input, textarea, select {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #EFE2D2; }
+::-webkit-scrollbar-thumb { background: #C9A07A; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #9A5B3A; }
+
+/* ── Utility Component Classes ──────────────────────────────────────────────── */
+@layer components {
+
+  /* Surface Cards — warm white with beige border */
+  .coop-card {
+    background: #FFFFFF;
+    border: 1px solid #E0D5C8;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(23,23,23,0.06), 0 1px 2px rgba(23,23,23,0.04);
+  }
+
+  .coop-card-beige {
+    background: #F7F3EC;
+    border: 1px solid #E0D5C8;
+    border-radius: 14px;
+  }
+
+  /* Primary button — copper/terracotta (min 48px touch target) */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    background-color: #9A5B3A;
+    color: #FFFFFF;
+    border: 1.5px solid #9A5B3A;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 150ms ease, transform 100ms ease, box-shadow 150ms ease;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .btn-primary:hover  { background-color: #C9684A; border-color: #C9684A; box-shadow: 0 4px 12px rgba(154,91,58,0.25); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-primary:focus-visible { outline: 2px solid #9A5B3A; outline-offset: 2px; }
+
+  /* Secondary button — ivory with charcoal border (min 48px touch target) */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    background-color: #F7F3EC;
+    color: #171717;
+    border: 1.5px solid #C9A07A;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease;
+    white-space: nowrap;
+  }
+  .btn-secondary:hover  { background-color: #EFE2D2; border-color: #9A5B3A; }
+  .btn-secondary:active { transform: scale(0.98); }
+  .btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-secondary:focus-visible { outline: 2px solid #9A5B3A; outline-offset: 2px; }
+
+  /* Danger button (min 48px touch target) */
+  .btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    background-color: #A94A43;
+    color: #FFFFFF;
+    border: 1.5px solid #A94A43;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+  }
+  .btn-danger:hover { background-color: #8a3830; }
+  .btn-danger:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Success button (min 48px touch target) */
+  .btn-success {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 48px;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    background-color: #527A62;
+    color: #FFFFFF;
+    border: 1.5px solid #527A62;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+  }
+  .btn-success:hover { background-color: #3f5e4b; }
+  .btn-success:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Form input (min 48px touch target) */
+  .coop-input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0.75rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    background-color: #FFFFFF;
+    color: #171717;
+    border: 1.5px solid #C9A07A;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+  .coop-input::placeholder { color: #6F6A63; }
+  .coop-input:focus { border-color: #9A5B3A; box-shadow: 0 0 0 3px rgba(154,91,58,0.12); }
+  .coop-input:disabled { background-color: #EFE2D2; opacity: 0.7; }
+
+  /* Badge system */
+  .badge-success { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; background: #527A6215; color: #527A62; border: 1px solid #527A6240; }
+  .badge-warning { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; background: #9A5B3A15; color: #9A5B3A; border: 1px solid #9A5B3A40; }
+  .badge-error   { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; background: #A94A4315; color: #A94A43; border: 1px solid #A94A4340; }
+  .badge-neutral { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; background: #6F6A6315; color: #6F6A63; border: 1px solid #6F6A6340; }
+
+  /* Glass panel — for Admin/dark contexts only */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid #E0D5C8;
+  }
+
+  .glass-card {
+    background: rgba(247, 243, 236, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid #E0D5C8;
+  }
+
+  /* Admin sidebar dark glass panels */
+  .admin-glass-panel {
+    background: rgba(35, 25, 18, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(154,91,58,0.2);
+  }
+
+  /* Section divider */
+  .coop-divider {
+    border: none;
+    border-top: 1px solid #E0D5C8;
+  }
+
+  /* Stat card */
+  .stat-card {
+    background: #FFFFFF;
+    border: 1px solid #E0D5C8;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+  }
+
+  /* Animate in */
+  .animate-in {
+    animation: fadeIn 200ms ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
