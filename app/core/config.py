@@ -1,3 +1,4 @@
+import json
 from typing import List, Union
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -6,12 +7,14 @@ from pathlib import Path
 # Resolve root directory path
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=(str(ROOT_DIR / ".env"), ".env"),
         env_file_encoding="utf-8",
         extra="ignore",
-        case_sensitive=False
+        case_sensitive=False,
+        enable_decoding=False
     )
 
     # Core Application
@@ -26,6 +29,7 @@ class Settings(BaseSettings):
     # Server
     BACKEND_HOST: str = "127.0.0.1"
     BACKEND_PORT: int = 8000
+
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
@@ -36,10 +40,17 @@ class Settings(BaseSettings):
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
-        if isinstance(v, str) and not v.startswith("["):
-            return [i.strip() for i in v.split(",")]
-        elif isinstance(v, list):
+        if isinstance(v, list):
             return v
+
+        if isinstance(v, str):
+            v = v.strip()
+
+            if v.startswith("["):
+                return json.loads(v)
+
+            return [i.strip() for i in v.split(",") if i.strip()]
+
         return ["*"]
 
     # Database
@@ -48,6 +59,7 @@ class Settings(BaseSettings):
     POSTGRES_USER: str = "gig_user"
     POSTGRES_PASSWORD: str = "gig_password"
     POSTGRES_DB: str = "cooperative_gig"
+
     DATABASE_URL: str = "postgresql+asyncpg://gig_user:gig_password@localhost:5432/cooperative_gig"
     SYNC_DATABASE_URL: str = "postgresql+psycopg2://gig_user:gig_password@localhost:5432/cooperative_gig"
 
@@ -60,5 +72,6 @@ class Settings(BaseSettings):
     FIREBASE_CREDENTIALS_PATH: str = ""
     FORECASTING_MODEL_TYPE: str = "baseline"
     WS_HEARTBEAT_INTERVAL: int = 30
+
 
 settings = Settings()
