@@ -112,7 +112,7 @@ export interface CreateBookingPayload {
   payment_method?: string;
 }
 
-const API_BASE = '/api/v1';
+const API_BASE = 'https://ps-1-rtys.vercel.app';
 
 export async function createBooking(payload: CreateBookingPayload): Promise<BookingDetail> {
   const res = await fetch(`${API_BASE}/bookings`, {
