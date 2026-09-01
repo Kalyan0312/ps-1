@@ -1,4 +1,18 @@
+  UW PICO 5.09                    File: backend/app/core/config.py                       
+
 from typing import List, Union
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pathlib import Path
+
+# Resolve root directory path
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent.parent
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(
+
+^G Get Help   ^O WriteOut   ^R Read File  ^Y Prev Pg    ^K Cut Text   ^C Cur Pos    
+^X Exit       ^J Justify    ^W Where is   ^V Next Pg    ^U UnCut Text ^T To Spell  from typing import List, Union
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
@@ -18,6 +32,15 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Cooperative Gig Platform"
     VERSION: str = "1.0.0"
     ENVIRONMENT: str = "development"
+    DEBUG: bool = True  env_file_encoding="utf-8",
+        extra="ignore",
+        case_sensitive=False 
+    )
+        
+    # Core Application
+    PROJECT_NAME: str = "Cooperative Gig Platform"
+    VERSION: str = "1.0.0"   
+    ENVIRONMENT: str = "development"
     DEBUG: bool = True
     API_V1_STR: str = "/api/v1"
     SECRET_KEY: str = "cooperative-gig-dev-secret-key-change-in-production"
@@ -31,6 +54,9 @@ class Settings(BaseSettings):
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://ps-1-mocha.vercel.app",
     ]
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
