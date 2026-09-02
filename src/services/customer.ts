@@ -27,7 +27,7 @@ export interface BookingSummary {
   created_at: string;
 }
 
-const API_BASE = 'https://ps-1-rtys.vercel.app';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://ps-1-rtys.vercel.app';
 
 export async function fetchServiceCategories(): Promise<ServiceCategory[]> {
   const res = await fetch(`${API_BASE}/services/categories`);

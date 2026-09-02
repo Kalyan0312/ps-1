@@ -63,7 +63,7 @@ export interface PricingConfig {
   minimum_wage_floor_enforced: boolean;
 }
 
-const API_BASE = 'https://ps-1-rtys.vercel.app';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://ps-1-rtys.vercel.app';
 
 export async function calculatePricing(request: PricingCalculateRequest): Promise<PricingCalculateResponse> {
   const res = await fetch(`${API_BASE}/pricing/calculate`, {

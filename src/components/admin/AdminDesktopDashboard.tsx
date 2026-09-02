@@ -57,10 +57,18 @@ interface AdminDesktopDashboardProps {
     full_name: string;
     role: string;
   };
+  activeTab?: AdminSubTab;
+  onTabChange?: (tab: AdminSubTab) => void;
 }
 
-export const AdminDesktopDashboard: React.FC<AdminDesktopDashboardProps> = ({ currentUser }) => {
-  const [activeTab, setActiveTab] = useState<AdminSubTab>('overview');
+export const AdminDesktopDashboard: React.FC<AdminDesktopDashboardProps> = ({
+  currentUser,
+  activeTab: controlledTab,
+  onTabChange: controlledTabChange,
+}) => {
+  const [localTab, setLocalTab] = useState<AdminSubTab>('overview');
+  const activeTab = controlledTab !== undefined ? controlledTab : localTab;
+  const setActiveTab = controlledTabChange || setLocalTab;
 
   // Overview metrics state
   const [overview, setOverview] = useState<AdminOverviewMetrics | null>(null);

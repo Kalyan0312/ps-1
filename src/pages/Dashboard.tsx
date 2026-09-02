@@ -16,13 +16,14 @@ import { HealthResponse } from '@/services/api';
 interface DashboardProps {
   healthData: HealthResponse | null;
   serverStatus: string;
+  onNavigatePortal?: (portal: 'worker' | 'customer' | 'admin' | 'health') => void;
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus, onNavigatePortal }) => {
   return (
     <div className="space-y-10 pb-12">
       {/* ─── 1. HERO SECTION (EDITORIAL REFERENCE STYLE) ────────────────────── */}
-      <div className="relative overflow-hidden rounded-3xl bg-[#171717] text-[#FFFFFF] p-8 sm:p-12 shadow-xl border border-[#2A2A2A]">
+      <div className="relative overflow-hidden rounded-3xl bg-[#171717] text-[#FFFFFF] p-6 sm:p-10 lg:p-12 shadow-xl border border-[#2A2A2A]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFFFFF]/10 border border-[#FFFFFF]/20 text-[#EFE2D2] text-xs font-semibold tracking-wide">
@@ -30,22 +31,28 @@ export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus }
               <span>Verified Worker-Owned Cooperative</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] font-display text-[#FFFFFF]">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] font-display text-[#FFFFFF]">
               Fair Work.<br />
               Trusted Service.<br />
               <span className="text-[#C9684A]">Shared Prosperity.</span>
             </h1>
 
-            <p className="text-[#EFE2D2] text-sm sm:text-base leading-relaxed max-w-xl font-normal opacity-90">
+            <p className="text-[#EFE2D2] text-xs sm:text-base leading-relaxed max-w-xl font-normal opacity-90">
               Verified local services powered by worker cooperatives. Direct wage guarantees, zero extortionate middleman fees, and democratic community dividends.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button className="btn-primary py-3.5 px-6 text-sm font-bold shadow-lg shadow-[#9A5B3A]/30 flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
+              <button
+                onClick={() => onNavigatePortal?.('customer')}
+                className="btn-primary py-3.5 px-6 text-sm font-bold shadow-lg shadow-[#9A5B3A]/30 flex items-center gap-2"
+              >
                 <span>Book a Service</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-              <button className="btn-secondary py-3.5 px-6 text-sm font-bold bg-[#FFFFFF]/10 hover:bg-[#FFFFFF]/20 text-[#FFFFFF] border-[#FFFFFF]/30">
+              <button
+                onClick={() => onNavigatePortal?.('worker')}
+                className="btn-secondary py-3.5 px-6 text-sm font-bold bg-[#FFFFFF]/10 hover:bg-[#FFFFFF]/20 text-[#FFFFFF] border-[#FFFFFF]/30"
+              >
                 Join as Worker
               </button>
             </div>
@@ -98,15 +105,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus }
       </div>
 
       {/* ─── 2. POPULAR SERVICES CAROUSEL/GRID ──────────────────────────────── */}
-      <div className="space-y-4">
+      <div id="services-section" className="space-y-4 scroll-mt-20">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold font-display text-[#171717]">Popular Services</h2>
             <p className="text-xs text-[#6F6A63]">Cooperative-verified craftspeople ready near you</p>
           </div>
-          <span className="text-xs font-bold text-[#9A5B3A] hover:text-[#C9684A] cursor-pointer flex items-center gap-1">
-            View all services <ArrowRight className="w-3.5 h-3.5" />
-          </span>
+          <button
+            onClick={() => onNavigatePortal?.('customer')}
+            className="text-xs font-bold text-[#9A5B3A] hover:text-[#C9684A] cursor-pointer flex items-center gap-1 bg-transparent border-0 p-0"
+          >
+            <span>Book a service</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
@@ -122,6 +133,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus }
           ].map((srv) => (
             <div
               key={srv.name}
+              onClick={() => onNavigatePortal?.('customer')}
               className="bg-[#FFFFFF] rounded-2xl p-4 border border-[#E0D5C8] hover:border-[#9A5B3A] hover:shadow-md transition-all text-center space-y-2 cursor-pointer group"
             >
               <div className="w-12 h-12 mx-auto rounded-xl bg-[#F7F3EC] group-hover:bg-[#EFE2D2] flex items-center justify-center text-2xl transition-colors border border-[#E0D5C8]">
@@ -137,13 +149,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus }
       </div>
 
       {/* ─── 3. HOW IT WORKS ─────────────────────────────────────────────────── */}
-      <div className="bg-[#FFFFFF] rounded-2xl p-8 border border-[#E0D5C8] space-y-6">
+      <div id="how-it-works-section" className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-8 border border-[#E0D5C8] space-y-6 scroll-mt-20">
         <div className="text-center max-w-xl mx-auto space-y-1">
           <h2 className="text-2xl font-bold font-display text-[#171717]">How It Works</h2>
           <p className="text-xs text-[#6F6A63]">Transparent, direct, and powered by collective ownership</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative">
           {[
             { step: '01', title: 'Tell us', desc: 'Speak or type what you need in your language' },
             { step: '02', title: 'Get matched', desc: 'PostGIS spatial engine dispatches nearest verified worker' },
@@ -162,7 +174,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus }
       </div>
 
       {/* ─── 4. JOIN AS WORKER BANNER ────────────────────────────────────────── */}
-      <div className="rounded-2xl bg-[#9A5B3A] text-white p-8 sm:p-10 border border-[#7A4628] shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="rounded-2xl bg-[#9A5B3A] text-white p-6 sm:p-8 lg:p-10 border border-[#7A4628] shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-[#F3E4D4]" />
@@ -175,7 +187,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ healthData, serverStatus }
             Join thousands of independent craftspeople building financial security, healthcare protection, and collective voting rights.
           </p>
         </div>
-        <button className="btn-secondary py-3.5 px-8 text-sm font-bold bg-[#FFFFFF] hover:bg-[#F7F3EC] text-[#171717] border-transparent shrink-0 shadow-lg">
+        <button
+          onClick={() => onNavigatePortal?.('worker')}
+          className="btn-secondary py-3.5 px-8 text-sm font-bold bg-[#FFFFFF] hover:bg-[#F7F3EC] text-[#171717] border-transparent shrink-0 shadow-lg"
+        >
           Join as Worker
         </button>
       </div>
