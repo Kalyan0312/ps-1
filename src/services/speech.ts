@@ -13,7 +13,7 @@ export interface TranscriptionResult {
   original_input: string;
 }
 
-const API_BASE = 'https://ps-1-rtys.vercel.app';
+const API_BASE = 'https://ps-1-rtys.vercel.app/api/v1';
 
 export async function transcribeSpeech(textInput?: string, audioBlob?: Blob): Promise<TranscriptionResult> {
   if (audioBlob) {
