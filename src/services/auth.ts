@@ -39,7 +39,7 @@ export const authStorage = {
   }
 };
 
-const API_BASE = 'https://ps-1-rtys.vercel.app/api/v1';
+const API_BASE = 'https://ps-1-rtys.vercel.app';
 
 export async function loginUser(phone_or_email: string, password: string): Promise<AuthResponse> {
   const res = await fetch(`${API_BASE}/auth/login`, {

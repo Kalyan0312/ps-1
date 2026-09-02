@@ -24,7 +24,7 @@ export interface HealthResponse {
   };
 }
 
-const API_BASE = 'https://ps-1-rtys.vercel.app/api/v1';
+const API_BASE = 'https://ps-1-rtys.vercel.app';
 
 export async function fetchHealth(): Promise<HealthResponse> {
   const response = await fetch(`${API_BASE}/health`, {

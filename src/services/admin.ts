@@ -1,4 +1,4 @@
-const API_BASE = 'https://ps-1-rtys.vercel.app/api/v1';
+const API_BASE = 'https://ps-1-rtys.vercel.app';
 
 export interface AdminOverviewMetrics {
   workers_online: number;
